@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>クイズアプリ</title>
-    <link rel="stylesheet" href="style.css"> <!-- ここを追加 -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>4択クイズ</h1>
-    <p>最も多く話されている言語は？</p>
+    <p id="question">最も多く話されている言語は？</p>
     <button>英語</button>
     <button>中国語</button>
     <button>スペイン語</button>
     <button>ヒンディー語</button>
 
-    <script src="script.js"></script>
     <p id="score">スコア: 0</p>
+    <button id="retry" style="display: none;">もう一度挑戦</button>
 
+    <script src="script.js"></script>
 </body>
 </html>
