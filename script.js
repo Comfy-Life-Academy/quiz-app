@@ -8,10 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     let currentQuiz = 0;
+    let score = 0;
 
     // HTML要素を取得
     const questionElement = document.querySelector("p");
     const buttons = document.querySelectorAll("button");
+    const scoreElement = document.getElementById("score");
 
     function loadQuiz() {
         let quiz = quizData[currentQuiz];
@@ -20,10 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
             button.textContent = quiz.choices[index];
             button.onclick = () => {
                 if (button.textContent === quiz.answer) {
+                    score++;
                     alert("正解！🎉");
                 } else {
                     alert("不正解💦");
                 }
+                updateScore();
                 nextQuiz();
             };
         });
@@ -32,6 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
     function nextQuiz() {
         currentQuiz = Math.floor(Math.random() * quizData.length);
         loadQuiz();
+    }
+
+    function updateScore() {
+        scoreElement.textContent = `スコア: ${score}`;
     }
 
     // 最初のクイズを読み込む
