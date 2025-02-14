@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentQuiz = 0;
     let score = 0;
+    let questionCount = 0;
+    const maxQuestions = 10; // クイズの最大数
 
     // HTML要素を取得
     const questionElement = document.querySelector("p");
@@ -16,8 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const scoreElement = document.getElementById("score");
 
     function loadQuiz() {
+        if (questionCount >= maxQuestions) {
+            endGame();
+            return;
+        }
         let quiz = quizData[currentQuiz];
-        questionElement.textContent = quiz.question;
+        questionElement.textContent = `(${questionCount + 1}/${maxQuestions}) ${quiz.question}`;
         buttons.forEach((button, index) => {
             button.textContent = quiz.choices[index];
             button.onclick = () => {
@@ -27,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     alert("不正解💦");
                 }
+                questionCount++;
                 updateScore();
                 nextQuiz();
             };
@@ -40,6 +47,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateScore() {
         scoreElement.textContent = `スコア: ${score}`;
+    }
+
+    function endGame() {
+        questionElement.textContent = `ゲーム終了！あなたのスコア: ${score} / ${maxQuestions}`;
+        buttons.forEach(button => button.style.display = "none");
     }
 
     // 最初のクイズを読み込む
