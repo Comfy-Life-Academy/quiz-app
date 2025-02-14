@@ -13,9 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const maxQuestions = 10; // クイズの最大数
 
     // HTML要素を取得
-    const questionElement = document.querySelector("p");
-    const buttons = document.querySelectorAll("button");
+    const questionElement = document.querySelector("#question");
+    const buttons = document.querySelectorAll("button:not(#retry)");
     const scoreElement = document.getElementById("score");
+    const retryButton = document.getElementById("retry");
 
     function loadQuiz() {
         if (questionCount >= maxQuestions) {
@@ -52,7 +53,20 @@ document.addEventListener("DOMContentLoaded", () => {
     function endGame() {
         questionElement.textContent = `ゲーム終了！あなたのスコア: ${score} / ${maxQuestions}`;
         buttons.forEach(button => button.style.display = "none");
+        retryButton.style.display = "block"; // リトライボタンを表示
     }
+
+    function resetGame() {
+        score = 0;
+        questionCount = 0;
+        scoreElement.textContent = "スコア: 0";
+        buttons.forEach(button => button.style.display = "block");
+        retryButton.style.display = "none";
+        loadQuiz();
+    }
+
+    // リトライボタンにリセット機能を追加
+    retryButton.addEventListener("click", resetGame);
 
     // 最初のクイズを読み込む
     loadQuiz();
